@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user_component/home.css}"/>
+    <script th:src="@{/js/home.js}"></script>
+</head>
+<body>
+<div id="register">
+    <a class="close" onclick="closeSignupForm()">
+        <img th:src="@{/asset/user_component/exitIcon.png}" width="50px" height="50px">
+    </a>
+
+    <h1>&nbsp;&nbsp;&nbsp;Sign Up</h1>
+
+    <div class="button-container">
+        <a th:href="@{/todo-app/redirect-google}">
+            <button class="google-button">
+                <img th:src="@{/asset/user_component/google_icon.png}" width="25" height="25">
+                <span class="button-text">Continue With Google</span>
+            </button>
+        </a>
+    </div>
+
+    <form method="post" th:action="@{/todo-app/register}" th:object="${request}">
+        <!-- Username input -->
+        <label class="username"><b>Username</b></label>
+        <input type="text" name="username" required>
+
+        <!-- Email input -->
+        <label class="email"><b>Email</b></label>
+        <input type="text" name="email" required>
+
+        <!-- Password input -->
+        <label class="password"><b>Password</b></label>
+        <input type="password" name="password" required>
+
+        <!-- Login button -->
+        <button type="submit" class="btn">Verify Email</button><br>
+    </form>
+    <div><span style="color:#000000" th:if="${message}" th:text="${message}"></span></div>
+</div>
+</body>
+</html>
