@@ -38,7 +38,16 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@Valid @RequestBody AuthRequest authRequest) {
-        return ResponseEntity.ok("");
+        String response = service.authenticate(authRequest);
+        switch (response){
+            case "inactive":
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Account with " + authRequest.getEmail() + " is inactive, please check your inbox for activation");
+            case "notFound":
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account with " + authRequest.getEmail() + " is not found, please register first!");
+            case "incorrectPassword":
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password is incorrect, please try again!");
+        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
     @PostMapping("/reset-password")
@@ -51,7 +60,7 @@ public class UserController {
     @GetMapping("/reset-password/{email}/{token}")
     public ResponseEntity<?> showResetPasswordPage(@PathVariable String email,
                                                    @PathVariable String token) {
-        String htmlContent = service.getResetPasswordForm();
+        String htmlContent = service.getResetPasswordForm(token);
         return ResponseEntity.status(HttpStatus.OK).body(htmlContent);
     }
 
@@ -61,8 +70,4 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body("Password Changed Successfully!");
     }
 
-    @PostMapping("/validate-token/{token}")
-    public ResponseEntity<?> validateToken(@PathVariable("token") String token) {
-        return ResponseEntity.ok("");
-    }
 }

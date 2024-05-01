@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.List;
+
 @Controller
 @AllArgsConstructor
 @Slf4j
@@ -24,7 +26,9 @@ public class AppController implements ErrorController {
 
     @GetMapping("/todo-app/profile")
     public String profile(Model model){
-        return null;
+        List<Task> tasks = service.accessProfile();
+        model.addAttribute("tasks", tasks);
+        return "task_component/userProfile";
     }
 
     @PostMapping("/todo-app/register")
@@ -44,7 +48,27 @@ public class AppController implements ErrorController {
 
     @PostMapping("/todo-app/login")
     String login(@ModelAttribute AuthenticationRequest request) {
-        return null;
+        try{
+            int statusCode = service.login(request);
+            switch (statusCode){
+                case 202:
+                    log.info("User is authenticated!");
+                    return "redirect:/todo-app/profile";
+                case 401:
+                    log.info("Password is incorrect!");
+                    break;
+                case 404:
+                    log.info("user is isn't found!");
+                    break;
+                case 403:
+                    log.info("account isn't active!");
+                    break;
+            }
+        }catch (HttpClientErrorException ex){
+            String errorMessage = ex.getResponseBodyAsString();
+            log.error("Validation failed: {}", errorMessage);
+        }
+        return "redirect:/todo-app?loginSuccess=false";
     }
 
     @PostMapping("/todo-app/reset-password")

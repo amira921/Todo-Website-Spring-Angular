@@ -37,15 +37,21 @@ public class WebService{
     }
 
     public int login(AuthenticationRequest request){
-        return 0;
+        ResponseEntity<String> response = template.postForEntity(BASE_URL+LOGIN_URL, request, String.class);
+        jwtToken = response.getBody();
+        email = request.getEmail();
+        return response.getStatusCode().value();
     }
 
     private RestTemplate getRestTemplateWithToken() {
-        return null;
+        RestTemplate template = restTemplateBuilder.defaultHeader("Authorization", "Bearer " + jwtToken).build();
+        return template;
     }
 
     public List<Task> accessProfile(){
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email, List.class);
+
     }
 
     public void logout(){

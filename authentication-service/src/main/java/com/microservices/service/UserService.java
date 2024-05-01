@@ -18,11 +18,10 @@ public interface UserService{
 
     // Authentication Functions
     String authenticate(AuthRequest request);
-    boolean validateToken(String token);
 
     // Reset Password Functions
     boolean sendResetPasswordMail(String email);
     void resetPassword(AuthRequest request);
 
-    String getResetPasswordForm();
+    String getResetPasswordForm(String token);
 }

@@ -16,24 +16,23 @@ This project follows a  microservices, client-server architectures, consisting o
    - User provides email, password, and username.
    - Verification email is sent to the provided email address.
    - User is required to navigate to the verification link included in the email to activate the account.
-   - Without activating the account through the provided link, the user cannot log in.
+   - **Without activating the account through the provided link**, the user cannot log in.
 
 **2. Authentication Process**
 - User provides email and password.
-- If the account is not found, the user cannot access the app and needs to register.
-- If the account is found but not active, the user cannot access the app and needs to check the inbox for activation instructions.
-- If the account is found, active, and the password is incorrect, the user cannot access the app and needs to try again or reset the password.
-- If the account is found, active, and the password is correct, the user can access the app.
+- **If the account is not found**, the user cannot access the app and needs to register.
+- **If the account is found but not active**, the user cannot access the app and needs to check the inbox for activation instructions.
+- **If the account is found, active, and the password is incorrect**, the user cannot access the app and needs to try again or reset the password.
+- **If the account is found, active, and the password is correct**, the user can access the app.
 
 **3. Reset Password Process**
 - User provides their email address.
-- If the account is not found, the user cannot access the app and is prompted to register.
-- If the account is found, a password reset email is sent to the provided email address.
-- User receives an email with link to reset their password.
-- User clicks on the reset password link provided in the email.
-- User is directed to a page where they can enter their email address and set a new password.
-- After submitting the new password, the user's password is updated.
-- User can now log in using the new password.
+- **If the account is not found**, the user cannot access the app and is prompted to register.
+- **If the account is found**, a password reset email is sent to the provided email address.
+- User receives an email with link to reset their password and clicks on the link provided.
+- **Token is expired after 30 minutes, if it expired**, user can't reset the password and need to send another request
+- **If token is valid**, user is directed to a page where they can enter their email address and set a new password.
+- After submitting the new password, the user's password is updated and can now log in.
 
 ## Demo
 
@@ -73,10 +72,30 @@ This project follows a  microservices, client-server architectures, consisting o
 **2. reset password: user is found**
 <p align="center"><img src="asset/rerset-found.PNG" width="600" length="600"></p>
 
-**3. reset password: verify email**
+**3. reset password: verify email - token is expired**
 <p align="center"><img src="asset/reset-verification.PNG" width="600" length="600"></p>
 
-**4. reset password: send new password**
+**4. reset password: verify email- token is valid**
+<p align="center">
+<img src="asset" width="300" length="600">
+
+**5. reset password: send new password**
 <p align="center">
 <img src="asset/reset-send-new-password.PNG" width="300" length="600">
 <img src="asset/reset-password-changed.PNG" width="300" length="600"></p>
+
+
+### Authentication Process
+**1. Authentication: account is inactive**
+<p align="center"><img src="asset/login-inactive.PNG" width="600" length="600"></p>
+
+**2. Authentication: account is not found**
+<p align="center"><img src="asset/login-notfound.PNG" width="600" length="600"></p>
+
+**3. Authentication: password is incorrect**
+<p align="center"><img src="asset/login-incorrectPassword.PNG" width="600" length="600"></p>
+
+**4. Authentication: valid login**
+<p align="center"><img src="asset/login-active.PNG" width="600" length="600"></p>
+
+

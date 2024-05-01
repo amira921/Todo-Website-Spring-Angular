@@ -6,9 +6,11 @@ import com.microservices.model.User;
 import com.microservices.repository.UserRepository;
 import com.microservices.security.*;
 import com.microservices.service.*;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Date;
@@ -23,7 +25,6 @@ public class UserServiceImpl implements UserService {
     private final JwtUserDetailsService userDetailsService;
     private final JwtUtilities jwtUtilities;
     private final EmailService emailService;
-    private final AuthenticationManager authenticationManager;
 
 
     @Override
@@ -52,15 +53,29 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
     @Override
     public String authenticate(AuthRequest request) {
-        return null;
-    }
+        log.info("Authentication request is sent...");
 
-    @Override
-    public boolean validateToken(String token) {
-        return false;
+        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+        if (userDetails == null) {
+            log.info("Account not found, user needs to register");
+            return "notFound";
+        } else if (!userDetails.isEnabled()) {
+            log.info("Account is inactive");
+            return "inactive";
+        } else {
+            String actualPassword = userDetails.getPassword();
+            boolean passwordMatches = encoder.matches(request.getPassword(), actualPassword);
+            if (passwordMatches) {
+                String jwtToken = jwtUtilities.generateToken(userDetails.getUsername());
+                log.info("User authenticated successfully!");
+                return jwtToken;
+            } else {
+                log.info("Password is incorrect");
+                return "incorrectPassword";
+            }
+        }
     }
 
     @Override
@@ -82,6 +97,7 @@ public class UserServiceImpl implements UserService {
         User user = repository.findByEmail(request.getEmail());
         if(user != null){
             user.setPassword(encoder.encode(request.getPassword()));
+            repository.save(user);
             log.info("password changed successfully!");
         }else{
             log.info("user not found!");
@@ -90,21 +106,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getResetPasswordForm() {
-        return  "<!DOCTYPE html>"
+    public String getResetPasswordForm(String token) {
+        try{
+            if(!jwtUtilities.isTokenExpired(token)) {
+                return "<!DOCTYPE html>"
+                        + "<html>"
+                        + "<head>"
+                        + "<meta charset=\"UTF-8\">"
+                        + "</head>"
+                        + "<body>"
+                        + "<h2>Reset Password</h2>"
+                        + "<form action=\"/auth/reset-password/save\" method=\"post\">"
+                        + "<label for=\"email\">Enter Email:</label><br>"
+                        + "<input type=\"email\" id=\"email\" name=\"email\"><br>"
+                        + "<label for=\"password\">Enter New Password:</label><br>"
+                        + "<input type=\"password\" id=\"password\" name=\"password\"><br><br>"
+                        + "<input type=\"submit\" value=\"Reset\">"
+                        + "</form>"
+                        + "</body>"
+                        + "</html>";
+            }
+        }catch (ExpiredJwtException e){
+            log.error(e.getMessage());
+        }
+        return "<!DOCTYPE html>"
                 + "<html>"
                 + "<head>"
                 + "<meta charset=\"UTF-8\">"
                 + "</head>"
                 + "<body>"
-                + "<h2>Reset Password</h2>"
-                + "<form action=\"/auth/reset-password/save\" method=\"post\">"
-                + "<label for=\"email\">Enter Email:</label><br>"
-                + "<input type=\"email\" id=\"email\" name=\"email\"><br>"
-                + "<label for=\"password\">Enter New Password:</label><br>"
-                + "<input type=\"password\" id=\"password\" name=\"password\"><br><br>"
-                + "<input type=\"submit\" value=\"Reset\">"
-                + "</form>"
+                + "<h3>Token Expired, try again</h3>"
                 + "</body>"
                 + "</html>";
     }
