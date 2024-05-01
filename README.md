@@ -47,3 +47,7 @@ This project follows a  microservices, client-server architectures, consisting o
 <p align="center"><img src="asset/account-verification.PNG" width="600" length="600"></p>
 
 
+**3. Registration: account activation**
+<p align="center"><img src="asset/activation.PNG" width="600" length="600"></p>
+
+

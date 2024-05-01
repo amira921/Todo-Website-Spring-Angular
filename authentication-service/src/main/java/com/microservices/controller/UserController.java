@@ -31,9 +31,9 @@ public class UserController {
     }
 
     @GetMapping("/register/verify/{email}/{token}")
-    public ResponseEntity<?> verifyAccount(@PathVariable("email") String email,
-                                           @PathVariable("token") String token) {
-        return ResponseEntity.ok("");
+    public ResponseEntity<?> verifyAccount(@PathVariable("email") String email) {
+        service.verifyAccount(email);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Account Activated Successfully");
     }
 
     @PostMapping("/login")

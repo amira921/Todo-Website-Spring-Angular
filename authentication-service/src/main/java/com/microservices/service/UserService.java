@@ -14,7 +14,7 @@ public interface UserService{
     void updateAccountIfEmailSent(RegistrationRequest updatedAccount);
 
     // Account Verification
-    boolean verifyAccount(String email, String token);
+    void verifyAccount(String email);
 
     // Authentication Functions
     String authenticate(AuthRequest request);

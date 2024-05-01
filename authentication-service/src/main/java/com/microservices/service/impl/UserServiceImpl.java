@@ -40,8 +40,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean verifyAccount(String email, String token) {
-        return false;
+    public void verifyAccount(String email) {
+        User user = repository.findByEmail(email);
+        if(user != null){
+            user.setAccountActive(true);
+            repository.save(user);
+            log.info("User Account is activated");
+        }
     }
 
 

@@ -59,8 +59,14 @@ public class JwtUtilities{
                 .getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+    public Boolean isTokenExpired(String token) {
+        boolean isExpired =  extractExpiration(token).before(new Date());
+        if (isExpired){
+            log.info("Activation Token is expired");
+            return true;
+        }
+        log.info("Activation token is valid");
+        return false;
     }
 
    public Boolean validateToken(String token, UserDetails userDetails) {
