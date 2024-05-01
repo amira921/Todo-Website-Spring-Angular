@@ -42,7 +42,20 @@ public class EmailServiceImpl implements EmailService {
 
 
     @Override
-    public void sendResetPasswordEmail(String email, String token){
-
+    public boolean sendResetPasswordEmail(String email, String token){
+        try{
+            MimeMessage message = mailSender.createMimeMessage();
+            message.setRecipient(TO, new InternetAddress(email));
+            message.setFrom(new InternetAddress(from));
+            message.setSubject("TodoList Website - Reset Password");
+            String url = "http://localhost:8080/auth/reset-password/" + email + "/" + token;
+            String content = "Navigate the url " + url;
+            message.setText(content);
+            mailSender.send(message);
+            return true;
+        }catch (MessagingException ex){
+            log.error(ex.getMessage());
+            return false;
+        }
     }
 }

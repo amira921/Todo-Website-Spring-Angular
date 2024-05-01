@@ -32,7 +32,7 @@ public class AppController implements ErrorController {
         try {
             int statusCode = service.register(request);
             if (statusCode == 201){
-                log.info("Registration Done Successfully;");
+                log.info("Registration Done Successfully!");
                 return "redirect:/todo-app?registrationSuccess=true";
             }
         } catch (HttpClientErrorException ex) {
@@ -49,7 +49,8 @@ public class AppController implements ErrorController {
 
     @PostMapping("/todo-app/reset-password")
     String sendResetMail(@ModelAttribute ResetPasswordRequest request) {
-        return null;
+        service.sendResetMail(request.getEmail());
+        return "redirect:/todo-app";
     }
     @GetMapping("/todo-app/logout")
     String logout() {

@@ -14,13 +14,15 @@ public interface UserService{
     void updateAccountIfEmailSent(RegistrationRequest updatedAccount);
 
     // Account Verification
-    void verifyAccount(String email);
+    void activateAccount(String email);
 
     // Authentication Functions
     String authenticate(AuthRequest request);
     boolean validateToken(String token);
 
     // Reset Password Functions
-    void sendResetPasswordMail(String email);
-    void resetPasswordIfMailSent(AuthRequest request);
+    boolean sendResetPasswordMail(String email);
+    void resetPassword(AuthRequest request);
+
+    String getResetPasswordForm();
 }

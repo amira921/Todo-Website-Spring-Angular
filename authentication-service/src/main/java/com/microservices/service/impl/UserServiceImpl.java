@@ -8,6 +8,7 @@ import com.microservices.security.*;
 import com.microservices.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Date;
@@ -22,13 +23,14 @@ public class UserServiceImpl implements UserService {
     private final JwtUserDetailsService userDetailsService;
     private final JwtUtilities jwtUtilities;
     private final EmailService emailService;
+    private final AuthenticationManager authenticationManager;
 
 
     @Override
     public RegistrationRequest register(RegistrationRequest newAccount) {
         log.info("Registration Request is running...");
         RegistrationRequest account = null;
-        if(!isEmailExist(newAccount.getEmail())){
+        if (!isEmailExist(newAccount.getEmail())) {
             account = createAccount(newAccount);
             saveAccount(account);
             sendVerificationMail(account.getEmail());
@@ -40,9 +42,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void verifyAccount(String email) {
+    public void activateAccount(String email) {
+        log.info("Account Activation is running....");
         User user = repository.findByEmail(email);
-        if(user != null){
+        if (user != null) {
             user.setAccountActive(true);
             repository.save(user);
             log.info("User Account is activated");
@@ -61,18 +64,54 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendResetPasswordMail(String email){
+    public boolean sendResetPasswordMail(String email) {
+        if(isEmailExist(email)){
+            String resetToken = jwtUtilities.generateToken(email);
+            boolean isSent = emailService.sendResetPasswordEmail(email,resetToken);
+            if(isSent){
+                log.info("Reset mail sent!");
+                return true;
+            }
+        }
+        log.info("User not found!");
+        return false;
+    }
+
+    @Override
+    public void resetPassword(AuthRequest request) {
+        User user = repository.findByEmail(request.getEmail());
+        if(user != null){
+            user.setPassword(encoder.encode(request.getPassword()));
+            log.info("password changed successfully!");
+        }else{
+            log.info("user not found!");
+        }
 
     }
 
     @Override
-    public void resetPasswordIfMailSent(AuthRequest request) {
-
+    public String getResetPasswordForm() {
+        return  "<!DOCTYPE html>"
+                + "<html>"
+                + "<head>"
+                + "<meta charset=\"UTF-8\">"
+                + "</head>"
+                + "<body>"
+                + "<h2>Reset Password</h2>"
+                + "<form action=\"/auth/reset-password/save\" method=\"post\">"
+                + "<label for=\"email\">Enter Email:</label><br>"
+                + "<input type=\"email\" id=\"email\" name=\"email\"><br>"
+                + "<label for=\"password\">Enter New Password:</label><br>"
+                + "<input type=\"password\" id=\"password\" name=\"password\"><br><br>"
+                + "<input type=\"submit\" value=\"Reset\">"
+                + "</form>"
+                + "</body>"
+                + "</html>";
     }
 
     @Override
     public boolean isEmailExist(String userEmail) {
-        return (userDetailsService.loadUserByUsername(userEmail) != null)? true:false;
+        return (userDetailsService.loadUserByUsername(userEmail) != null) ? true : false;
     }
 
     @Override
@@ -84,10 +123,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean saveAccount(RegistrationRequest newUser){
+    public boolean saveAccount(RegistrationRequest newUser) {
         User user = mapper.mapToEntity(newUser);
         user = repository.save(user);
-        if(user != null){
+        if (user != null) {
             log.info("New Account saved in database");
             return true;
         }
@@ -96,19 +135,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendVerificationMail(String email){
-        String activationToken= jwtUtilities.generateToken(email);
-        emailService.sendActivationEmail(email,activationToken);
+    public void sendVerificationMail(String email) {
+        String activationToken = jwtUtilities.generateToken(email);
+        boolean isSent = emailService.sendActivationEmail(email, activationToken);
+        if(isSent) log.info("Activation mail sent!");
+        else log.info("activation mail failed to sent!");
     }
 
     @Override
     public void updateAccountIfEmailSent(RegistrationRequest updatedAccount) {
         User user = repository.findByEmail(updatedAccount.getEmail());
-        if(user != null){
+        if (user != null) {
             user.setActivationEmailSent(true);
             repository.save(user);
             log.info("Account updated in database");
-        }
-        else log.error("Account isn't updated in database");
+        } else log.error("Account isn't updated in database");
     }
 }

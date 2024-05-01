@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface EmailService {
     boolean sendActivationEmail(String userEmail, String activationToken);
-    void sendResetPasswordEmail(String email, String token);
+    boolean sendResetPasswordEmail(String email, String token);
 }

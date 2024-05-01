@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/register/verify/{email}/{token}")
     public ResponseEntity<?> verifyAccount(@PathVariable("email") String email) {
-        service.verifyAccount(email);
+        service.activateAccount(email);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Account Activated Successfully");
     }
 
@@ -43,18 +43,22 @@ public class UserController {
 
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
-        return ResponseEntity.ok("");
+        boolean isFound = service.sendResetPasswordMail(request.getEmail());
+        return (isFound)? ResponseEntity.status(HttpStatus.OK).body("Reset mail request is sent, check your inbox!")
+                        : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
     }
 
     @GetMapping("/reset-password/{email}/{token}")
     public ResponseEntity<?> showResetPasswordPage(@PathVariable String email,
                                                    @PathVariable String token) {
-        return ResponseEntity.ok("");
+        String htmlContent = service.getResetPasswordForm();
+        return ResponseEntity.status(HttpStatus.OK).body(htmlContent);
     }
 
     @PostMapping("/reset-password/save")
     public ResponseEntity<?> resetPassword(@Valid @ModelAttribute AuthRequest request) {
-        return ResponseEntity.ok("");
+        service.resetPassword(request);
+        return ResponseEntity.status(HttpStatus.OK).body("Password Changed Successfully!");
     }
 
     @PostMapping("/validate-token/{token}")

@@ -4,6 +4,9 @@ import com.todolist.clientApp.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -50,6 +53,11 @@ public class WebService{
     }
 
     public void sendResetMail(String email) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String jsonBody = "{\"email\":\"" + email +"\"}";
+        HttpEntity<String> requestEntity = new HttpEntity<>(jsonBody, headers);
+        template.postForObject(BASE_URL + RESET_URL, requestEntity, String.class);
     }
 
     public String addTask(Task task){
