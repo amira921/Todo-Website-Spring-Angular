@@ -1,4 +1,4 @@
-package com.authentication.security;
+package com.microservices.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -16,17 +16,17 @@ public class JwtUtilities{
     @Value("${jwt.secret}")
     private String secret;
 
-    public String generateToken(String userName) {
+    public String generateToken(String email) {
         Map<String, Object> claims = new HashMap<>();
-        String token= createToken(claims, userName);
-        log.info("Token Generated for " + userName + " - " + token);
+        String token= createToken(claims, email);
+        log.info("Token Generated for " + email + " - " + token);
         return token;
     }
 
-    private String createToken(Map<String, Object> claims, String userName) {
+    private String createToken(Map<String, Object> claims, String email) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(userName)
+                .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
@@ -64,7 +64,7 @@ public class JwtUtilities{
     }
 
    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        final String email = extractUsername(token);
+        return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }

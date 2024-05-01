@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/user_component/home.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user_component/homeForms.css}"/>
     <script th:src="@{/js/home.js}"></script>
 </head>
 <body>
@@ -18,7 +18,7 @@
         <a th:href="@{/todo-app/redirect-google}">
             <button class="google-button">
                 <img th:src="@{/asset/user_component/google_icon.png}" width="25" height="25">
-                <span class="button-text">Continue With Google</span>
+                <span class="button-text">&nbsp;&nbsp;Continue With Google</span>
             </button>
         </a>
     </div>
@@ -36,10 +36,15 @@
         <label class="password"><b>Password</b></label>
         <input type="password" name="password" required>
 
+        <p style="font-size:small;">
+            Password must contain at least 8 characters long, one digit, one lowercase letter,
+            one uppercase letter, one special character
+        </p>
+
         <!-- Login button -->
         <button type="submit" class="btn">Verify Email</button><br>
     </form>
-    <div><span style="color:#000000" th:if="${message}" th:text="${message}"></span></div>
+
 </div>
 </body>
 </html>

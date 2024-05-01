@@ -1,4 +1,4 @@
-package com.authentication.model;
+package com.microservices.model;
 
 import jakarta.persistence.*;
 import lombok.*;

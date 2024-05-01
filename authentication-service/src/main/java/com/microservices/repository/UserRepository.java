@@ -1,6 +1,6 @@
-package com.authentication.repository;
+package com.microservices.repository;
 
-import com.authentication.model.User;
+import com.microservices.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

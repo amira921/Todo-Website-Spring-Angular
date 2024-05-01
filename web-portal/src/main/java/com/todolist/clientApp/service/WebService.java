@@ -29,7 +29,8 @@ public class WebService{
     public static String email;
 
     public int register(RegistrationRequest request){
-        return 0;
+        ResponseEntity<String> response = template.postForEntity(BASE_URL+REGISTER_URL, request, String.class);
+        return response.getStatusCode().value();
     }
 
     public int login(AuthenticationRequest request){

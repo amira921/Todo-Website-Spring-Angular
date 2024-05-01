@@ -1,4 +1,4 @@
-package com.authentication.security;
+package com.microservices.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.*;

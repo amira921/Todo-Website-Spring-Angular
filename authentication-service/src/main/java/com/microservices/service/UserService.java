@@ -1,23 +1,26 @@
-package com.authentication.service;
+package com.microservices.service;
 
-import com.authentication.dto.*;
-import com.authentication.model.User;
-import jakarta.mail.MessagingException;
+import com.microservices.dto.*;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService{
+    // Registration Functions
     RegistrationRequest register(RegistrationRequest newAccount);
+    boolean isEmailExist(String userEmail);
     RegistrationRequest createAccount(RegistrationRequest newAccount);
-    boolean checkIfEmailExist(String userEmail);
-    RegistrationRequest saveNewAccount(RegistrationRequest newUser);
-    void sendActivationMail(String email) throws MessagingException;
+    boolean saveAccount(RegistrationRequest newUser);
+    void sendVerificationMail(String email);
+    void updateAccountIfEmailSent(RegistrationRequest updatedAccount);
+
+    // Account Verification
     boolean verifyAccount(String email, String token);
+
+    // Authentication Functions
     String authenticate(AuthRequest request);
-    void sendResetPassword(String email) throws MessagingException;
-    RegistrationRequest updateAccountIfEmailSent(RegistrationRequest updatedAccount);
-    RegistrationRequest updateAccountIfAccountVerified(User account);
-    void resetPassword(AuthRequest request);
-    long getUserIdByEmail(String email);
     boolean validateToken(String token);
+
+    // Reset Password Functions
+    void sendResetPasswordMail(String email);
+    void resetPasswordIfMailSent(AuthRequest request);
 }

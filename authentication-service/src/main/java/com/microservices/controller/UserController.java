@@ -1,7 +1,7 @@
-package com.authentication.controller;
+package com.microservices.controller;
 
-import com.authentication.dto.*;
-import com.authentication.service.UserService;
+import com.microservices.dto.*;
+import com.microservices.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +21,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody RegistrationRequest newUser) {
-        return ResponseEntity.ok("");
+    public ResponseEntity<?> register(@Valid @RequestBody RegistrationRequest newRequest) {
+        RegistrationRequest request = service.register(newRequest);
+        return (request != null) ?
+                ResponseEntity.status(HttpStatus.CREATED)
+                        .body("Your account has been successfully created with the email: " + request.getEmail() + "\n"
+                        + "To activate your account, please check your email inbox to verify your email address")
+                : ResponseEntity.status(HttpStatus.FOUND).body("Account already exist");
     }
 
     @GetMapping("/register/verify/{email}/{token}")

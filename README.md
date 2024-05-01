@@ -7,34 +7,43 @@ This project follows a  microservices, client-server architectures, consisting o
 - **api-gateway** - API gateway that proxies all the micro-services
 - **authentication-service** - user authentication microservice
 - **task-service** - task management microservice
-- **web-portal** - Single Page Application that provides the UI
+- **web-portal** - client Application that provides the UI
+
+## Microservices Overview
+## Authentication Service
+
+**1. Registration Process**
+   - User provides email, password, and username.
+   - Verification email is sent to the provided email address.
+   - User is required to navigate to the verification link included in the email to activate the account.
+   - Without activating the account through the provided link, the user cannot log in.
 
 
-# Microservices Overview
-## authentication-service
-### Registration
-1. **Create Account**
-<p align="center"><img src="asset/registration.png" width="500" length="600"></p>
 
-2. **Verify User Email**
-<p align="center"><img src="asset/account-verification.PNG" width="500" length="600"></p>
+## Demo
 
-3. **Activate Account**
-<p align="center"><img src="asset/account-activation.PNG" width="600" length="600"></p>
 
-### Authentication
-<p align="center"><img src="asset/login.PNG" width="500" length="600"></p>
+## Swagger EndPoints
 
-### Change Password
-1. **Send Request with Email**
-<p align="center"><img src="asset/resetpassword-verifyEmail.PNG" width="500" length="600"></p>
+### web Portal
 
-2. **Verify User Email**
-<p align="center"><img src="asset/resetpassword-emailVerification.PNG" width="500" length="600"></p>
+### Authentication Micro-Service
 
-3. **Navigate URL and Set New Password**
-<p align="center"><img src="asset/changepassword.PNG" width="500" length="600"></p>
+### Task Micro-Service
 
-### **Authentication Service also handle Validation errors and Exceptions**
-**Check a sample**
-<p align="center"><img src="asset/invalidDataRequest.PNG" width="700" length="600"></p>
+
+## Postman Testing
+
+**1. Registration: invalid data**
+<p align="center"><img src="asset/invalidDataRequest.PNG" width="600" length="600"></p>
+
+**2. Registration: valid data**
+<p align="center"><img src="asset/registration.PNG" width="600" length="600"></p>
+
+**3. Registration: user exists**
+<p align="center"><img src="asset/registration_userExists.PNG" width="600" length="600"></p>
+
+**3. Registration: verification email to activate account**
+<p align="center"><img src="asset/account-verification.PNG" width="600" length="600"></p>
+
+

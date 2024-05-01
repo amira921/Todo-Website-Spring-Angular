@@ -1,4 +1,4 @@
-package com.authentication.dto;
+package com.microservices.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -24,7 +24,6 @@ public class RegistrationRequest{
     @NotBlank(message = "Please enter a valid username")
     private String username;
 
-    private boolean isActivationEmailSent;
-    private boolean isAccountActive;
     private Date created_at;
-}
+    private boolean isActivationEmailSent;
+    private boolean isAccountActive;}

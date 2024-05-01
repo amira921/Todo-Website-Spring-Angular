@@ -1,4 +1,4 @@
-package com.authentication.exception;
+package com.microservices.exception;
 
 import lombok.*;
 import java.time.LocalDateTime;

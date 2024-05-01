@@ -1,7 +1,7 @@
-package com.authentication.mapper;
+package com.microservices.mapper;
 
-import com.authentication.dto.RegistrationRequest;
-import com.authentication.model.User;
+import com.microservices.dto.RegistrationRequest;
+import com.microservices.model.User;
 import org.mapstruct.Mapper;
 
 @Mapper

@@ -2,17 +2,19 @@ package com.todolist.clientApp.controller;
 
 import com.todolist.clientApp.dto.*;
 import com.todolist.clientApp.service.WebService;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Controller
 @AllArgsConstructor
 @Slf4j
-public class AppController {
+public class AppController implements ErrorController {
     private final WebService service;
 
     @GetMapping("/todo-app")
@@ -26,8 +28,18 @@ public class AppController {
     }
 
     @PostMapping("/todo-app/register")
-    String register(@ModelAttribute RegistrationRequest request) {
-        return null;
+    public String register(@ModelAttribute RegistrationRequest request) {
+        try {
+            int statusCode = service.register(request);
+            if (statusCode == 201){
+                log.info("Registration Done Successfully;");
+                return "redirect:/todo-app?registrationSuccess=true";
+            }
+        } catch (HttpClientErrorException ex) {
+            String errorMessage = ex.getResponseBodyAsString();
+            log.error("Validation failed: {}", errorMessage);
+        }
+        return "redirect:/todo-app?registrationSuccess=false";
     }
 
     @PostMapping("/todo-app/login")
@@ -94,5 +106,10 @@ public class AppController {
     @GetMapping("/todo-app/profile/filter=overdue")
     public String getOverdueTasks(Model model) {
         return null;
+    }
+
+    @RequestMapping("/error")
+    public String handleError() {
+        return "error";
     }
 }

@@ -1,4 +1,4 @@
-package com.authentication.dto;
+package com.microservices.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;

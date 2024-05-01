@@ -8,10 +8,10 @@
 		<version>3.0.4</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.todolist</groupId>
-	<artifactId>client</artifactId>
+	<groupId>com.microservices</groupId>
+	<artifactId>web-portal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<name>web-portal</name>
 	<description>client project for todolist microservices</description>
 
 	<properties>

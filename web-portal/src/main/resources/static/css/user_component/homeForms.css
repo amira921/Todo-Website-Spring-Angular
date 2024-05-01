@@ -6,7 +6,7 @@
     border: 3px solid #f1f1f1;
     z-index: 9;
     border-radius: 20px;
-    color: #475a54;
+    color: #917156;
     width: 30%;
     height: 100%;
     padding: 10px;
@@ -60,13 +60,23 @@ a, label{
     color: #917156;
 }
 
-#loginFrame input[type=text], #login input[type=password] ,
-#forgot-password input[type=text], #forgot-password input[type=password],
-#register input[type=text], #register input[type=password]{
+#forgot-password input[type=password],#login input[type=password] ,#register input[type=password]{
     width: 90%;
     border-radius: 20px;
     padding: 15px;
-    margin: 3px 0 22px 0;
+    margin: 3px 0 1px 0;
+    border-radius: 20px;
+    border: none;
+    background: #f1f1f1;
+    color: #917156;
+    font-size: medium;
+}
+
+#login input[type=text], #forgot-password input[type=text], #register input[type=text]{
+    width: 90%;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 3px 0 10px 0;
     border-radius: 20px;
     border: none;
     background: #f1f1f1;
@@ -83,7 +93,7 @@ a, label{
     font-size: medium;
 }
 
-#login.btn , #forgot-password.btn , #register.btn{
+#login .btn , #forgot-password .btn , #register .btn{
     background-color: #917156;
     color: white;
     border-radius: 20px;
@@ -124,7 +134,7 @@ a, label{
 }
 
 @media only screen and (max-width: 768px) {
-  #login, #forgot-password, #registerFrame{
+  #login, #forgot-password, #register{
     width: 100%;
     right: unset;
    }
