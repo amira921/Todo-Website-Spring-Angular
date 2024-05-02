@@ -1,7 +1,11 @@
 # Todo-List-Microservices
 This project follows a  microservices, client-server architectures, consisting of separate services for authentication and managing to-do items, each exposing RESTful APIs.
 
-[![Demo](asset/website-home.PNG)](https://drive.google.com/file/d/1oQOSAmZKEzCw7c-x5yrKS_8traggIklm/view?usp=sharing)
+<div align="center">
+   <h2>Demo</h2>
+
+   [![Demo](asset/website-home.PNG)](https://drive.google.com/file/d/1oQOSAmZKEzCw7c-x5yrKS_8traggIklm/view?usp=sharing)
+</div>
 
 # Application Architecture
 - **discovery-service** - Eureka server
