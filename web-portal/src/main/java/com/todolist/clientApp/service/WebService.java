@@ -4,10 +4,7 @@ import com.todolist.clientApp.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
@@ -50,15 +47,9 @@ public class WebService{
 
     public List<Task> accessProfile(){
         RestTemplate template = getRestTemplateWithToken();
-        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email, List.class);
-
+        return (template != null)?template.getForObject(BASE_ENDPOINT+PROFILE_URL+email, List.class)
+                : null;
     }
-
-    public ResponseEntity<?> redirectGoogle() {
-        return null;
-    }
-
-
     public void logout(){
         jwtToken=null;
     }

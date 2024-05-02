@@ -1,8 +1,6 @@
 # Todo-List-Microservices
 This project follows a  microservices, client-server architectures, consisting of separate services for authentication and managing to-do items, each exposing RESTful APIs.
 
-## Demo
-
 
 # Application Architecture
 - **discovery-service** - Eureka server
@@ -68,7 +66,7 @@ Install dependencies: mvn install
 <img src="asset/swagger-authentication.PNG" width="400" length="600">
 </p>
 
-## Task Service
+## 2. Task Service
 ### Features
 **To access all features, user should authenticate first**
 - Get all tasks by user's email
@@ -100,7 +98,7 @@ Install dependencies: mvn install
 <img src="asset/swagger-task.PNG" width="400" length="600">
 </p>
 
-## Web Portal
+## 3. Web Portal
 ### Features
 - Authentication: Secure login system to access the portal
 - Task Microservices: Utilizes task microservices through an API Gateway for seamless integration and functionality
@@ -111,6 +109,7 @@ Install dependencies: mvn install
 - Springdoc OpenAPI Starter WebMvc UI
 - Project Lombok 
 - Spring Cloud Starter Netflix Eureka Client
+- OAuth2 Client
 
 ### Swagger end-points
 
@@ -119,7 +118,7 @@ Install dependencies: mvn install
 <img src="asset/swagger-app-2.PNG" width="400" length="600">
 </p>
 
-## Discovery Service
+## 4. Discovery Service
 <p align="center">
 <img src="asset/registry-service.PNG" width="600" length="600">
 </p>
@@ -128,7 +127,7 @@ Install dependencies: mvn install
 - Spring Cloud Netflix Eureka Server
 - Spring Cloud Config
 
-## API Gateway
+## 5. API Gateway
 
 ### Technologies Used
 - Spring Boot Starter Webflux

@@ -25,8 +25,11 @@ public class AppController implements ErrorController {
     @GetMapping("/todo-app/profile")
     public String profile(Model model){
         List<Task> tasks = service.accessProfile();
-        model.addAttribute("tasks", tasks);
-        return "task_component/userProfile";
+        if(tasks != null) {
+            model.addAttribute("tasks", tasks);
+            return "task_component/userProfile";
+        }
+        return "redirect:/todo-app";
     }
 
     @PostMapping("/todo-app/register")
@@ -74,6 +77,7 @@ public class AppController implements ErrorController {
         service.sendResetMail(request.getEmail());
         return "redirect:/todo-app";
     }
+
     @GetMapping("/todo-app/logout")
     String logout() {
         service.logout();
