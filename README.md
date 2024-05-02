@@ -1,7 +1,7 @@
 # Todo-List-Microservices
 This project follows a  microservices, client-server architectures, consisting of separate services for authentication and managing to-do items, each exposing RESTful APIs.
 
-[![Demo](asset/website-home.PNG)](asset/demo.mp4)
+[![Demo](asset/website-home.PNG)](https://drive.google.com/file/d/1oQOSAmZKEzCw7c-x5yrKS_8traggIklm/view?usp=sharing)
 
 # Application Architecture
 - **discovery-service** - Eureka server
@@ -250,3 +250,9 @@ Install dependencies: mvn install
 </p>
 </details>
 
+## Future Work
+
+- Enhance interactivity: Display feedback messages for user actions.
+- Implement OAuth2 authentication with Google API.
+- Strengthen security with additional layers.
+- Introduce a notification system to alert users before tasks expire.
