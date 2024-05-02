@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,43 +18,50 @@ public class TaskController {
 
     @GetMapping("")
     public ResponseEntity<?> getTasks(@PathVariable String email) {
-        List<Object> tasks = new ArrayList<>();
+        List<TaskDTO> tasks = service.getTasksByUserEmail(email);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(tasks);
     }
 
     @GetMapping("/filter=personal")
     public ResponseEntity<?> getPersonalTasks(@PathVariable String email) {
-        return ResponseEntity.ok("");
+        List<TaskDTO> tasks = service.getPersonalTasksByUserEmail(email);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(tasks);
     }
 
     @GetMapping("/filter=work")
     public ResponseEntity<?> getWorkTasks(@PathVariable String email) {
-        return ResponseEntity.ok("");
+        List<TaskDTO> tasks = service.getWorkTasksByUserEmail(email);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(tasks);
     }
 
     @GetMapping("/filter=today")
     public ResponseEntity<?> getTodayTasks(@PathVariable String email) {
-        return ResponseEntity.ok("");
+        List<TaskDTO> tasks = service.getTodayTasksByUserEmail(email);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(tasks);
     }
 
     @GetMapping("/filter=next-week")
     public ResponseEntity<?> getWeeklyTasks(@PathVariable String email) {
-        return ResponseEntity.ok("");
+        List<TaskDTO> tasks = service.getWeeklyTasksByUserEmail(email);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(tasks);
     }
 
     @GetMapping("/filter=in-progress")
     public ResponseEntity<?> getInProgressTasks(@PathVariable String email) {
-        return ResponseEntity.ok("");
+        List<TaskDTO> tasks = service.getInProgressTasksByUserEmail(email);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(tasks);
     }
 
     @GetMapping("/filter=completed")
     public ResponseEntity<?> getCompletedTasks(@PathVariable String email) {
-        return ResponseEntity.ok("");
+        List<TaskDTO> tasks = service.getCompletedTasksByUserEmail(email);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(tasks);
     }
 
     @GetMapping("/filter=overdue")
     public ResponseEntity<?> getOverdueTasks(@PathVariable String email) {
-        return ResponseEntity.ok("");
+        List<TaskDTO> tasks = service.getOverdueTasksByUserEmail(email);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(tasks);
     }
 
     @PostMapping("/addTask")

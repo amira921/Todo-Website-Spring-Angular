@@ -1,17 +1,31 @@
 # Todo-List-Microservices
 This project follows a  microservices, client-server architectures, consisting of separate services for authentication and managing to-do items, each exposing RESTful APIs.
 
+## Demo
 
-## Application Architecture
+
+# Application Architecture
 - **discovery-service** - Eureka server
 - **api-gateway** - API gateway that proxies all the micro-services
 - **authentication-service** - user authentication microservice
 - **task-service** - task management microservice
 - **web-portal** - client Application that provides the UI
 
-## Microservices Overview
-## Authentication Service
+# Getting Started
+- Clone the repository: `git clone https://github.com/amira921/Todo-List-Microservices `
+- Navigate to the project directory: `cd ./Todo-List-Microservices`
+- Start Apache, MySQL, from Xampp
+Install dependencies: mvn install
+- Update application.properties files
+- Run discovery-service project
+- Run api-gateway project
+- Run authentication-service project
+- Run task-service project
+- Run web-portal project
 
+# Microservices Overview
+## 1. Authentication Service
+### Features
 **1. Registration Process**
    - User provides email, password, and username.
    - Verification email is sent to the provided email address.
@@ -34,68 +48,187 @@ This project follows a  microservices, client-server architectures, consisting o
 - **If token is valid**, user is directed to a page where they can enter their email address and set a new password.
 - After submitting the new password, the user's password is updated and can now log in.
 
-## Demo
+### Technologies Used
+- Spring Boot Starter Web
+- Spring Boot Starter Data JPA
+- MySQL Connector/J
+- Spring Boot Starter Validation
+- Spring Boot Starter Security
+- JWT API and Jackson Integration
+- Spring Boot Starter Mail
+- Project Lombok (with Lombok MapStruct Binding)
+- MapStruct (with MapStruct Processor)
+- Spring Boot Starter Test
+- Mockito Core
+- Spring Cloud Netflix Eureka Client
+- Springdoc OpenAPI Starter WebMVC UI
 
+### Swagger end-points
+<p align="center">
+<img src="asset/swagger-authentication.PNG" width="300" length="600">
+</p>
 
-## Swagger EndPoints
+## Task Service
+### Features
+**To access all features, user should authenticate first**
+- Get all tasks by user's email
+- Retrieves **personal tasks** 
+- Retrieves **work-related** tasks 
+- Retrieves tasks that are scheduled for **today** 
+- Retrieves tasks scheduled for the **upcoming week** 
+- Retrieves tasks that are currently **in progress** 
+- Retrieves tasks that have been **completed** 
+- Retrieves tasks that are **overdue** 
+- Add tasks
+- Update tasks
+- Delete tasks
 
-### web Portal
+### Technologies Used
+- Spring Cloud Netflix Eureka Client
+- Spring Boot Starter Web
+- Spring Boot Starter Data JPA
+- MySQL Connector
+- Springdoc OpenAPI Starter WebMVC UI
+- Spring Boot Starter Validation
+- Project Lombok (with Lombok MapStruct Binding)
+- MapStruct (with MapStruct Processor)
+- Spring Boot Starter Test
 
-### Authentication Micro-Service
+### Swagger end-points
 
-### Task Micro-Service
+<p align="center">
+<img src="asset/swagger-task.PNG" width="300" length="600">
+</p>
 
+## Web Portal
+### Features
+- Authentication: Secure login system to access the portal
+- Task Microservices: Utilizes task microservices through an API Gateway for seamless integration and functionality
+
+### Technologies Used
+- Spring Boot Starter Web
+- Spring Boot Starter Thymeleaf
+- Springdoc OpenAPI Starter WebMvc UI
+- Project Lombok 
+- Spring Cloud Starter Netflix Eureka Client
+
+### Swagger end-points
+
+<p align="center">
+<img src="asset/swagger-app-1.PNG" width="300" length="600">
+<img src="asset/swagger-app-2.PNG" width="300" length="600">
+</p>
+
+## Discovery Service
+<p align="center">
+<img src="asset/registry-service.PNG" width="300" length="600">
+</p>
+
+## API Gateway
 
 ## Postman Testing
+#### The application handles various types of validation and exceptions. Below are a few test cases:
 
-### Registration Process
-**1. Registration: invalid data**
+<details>
+
+**<summary>Registration Process </summary>**
+<p align="left"> 
+
+**1. invalid data**
 <p align="center"><img src="asset/invalidDataRequest.PNG" width="600" length="600"></p>
 
-**2. Registration: valid data**
+**2. valid data**
 <p align="center"><img src="asset/registration.PNG" width="600" length="600"></p>
 
-**3. Registration: user exists**
+**3. user exists**
 <p align="center"><img src="asset/registration_userExists.PNG" width="600" length="600"></p>
 
-**4. Registration: verification email to activate account**
+**4. verification email to activate account**
 <p align="center"><img src="asset/account-verification.PNG" width="600" length="600"></p>
 
-**5. Registration: account activation**
+**5. account activation**
 <p align="center"><img src="asset/activation.PNG" width="600" length="600"></p>
+</p>
+</details>
 
 
-### Reset Password Process
-**1. reset password: user is not found**
+<details>
+
+**<summary>Reset Password Process</summary>**
+
+<p align="left">
+
+**1. user is not found**
 <p align="center"><img src="asset/reset-not-found.PNG" width="600" length="600"></p>
 
-**2. reset password: user is found**
+**2. user is found**
 <p align="center"><img src="asset/rerset-found.PNG" width="600" length="600"></p>
 
-**3. reset password: verify email - token is expired**
+**3. verify email - token is expired**
 <p align="center"><img src="asset/reset-verification.PNG" width="600" length="600"></p>
 
-**4. reset password: verify email- token is valid**
+**4. verify email- token is valid**
 <p align="center">
-<img src="asset" width="300" length="600">
+<img src="asset/reset-token-expired.PNG" width="300" length="600">
 
-**5. reset password: send new password**
+**5. send new password**
 <p align="center">
 <img src="asset/reset-send-new-password.PNG" width="300" length="600">
 <img src="asset/reset-password-changed.PNG" width="300" length="600"></p>
+</p>
+</details>
 
+<details>
 
-### Authentication Process
-**1. Authentication: account is inactive**
+**<summary> Authentication Process</summary>**
+<p align="left>
+
+**1. account is inactive**
 <p align="center"><img src="asset/login-inactive.PNG" width="600" length="600"></p>
 
-**2. Authentication: account is not found**
+**2. account is not found**
 <p align="center"><img src="asset/login-notfound.PNG" width="600" length="600"></p>
 
-**3. Authentication: password is incorrect**
+**3. password is incorrect**
 <p align="center"><img src="asset/login-incorrectPassword.PNG" width="600" length="600"></p>
 
-**4. Authentication: valid login**
+**4. valid login**
 <p align="center"><img src="asset/login-active.PNG" width="600" length="600"></p>
+</p>
+</details>
 
+
+<details>
+
+**<summary> Filter Tasks Feature</summary>**
+<p align="left>
+
+**1. get all tasks - user didn't authenticate**
+<p align="center"><img src="asset/task-authentication.PNG" width="600" length="600"></p>
+
+**2. get all tasks**
+<p align="center"><img src="asset/all-tasks.PNG" width="600" length="600"></p>
+
+**3. filter tasks: completed tasks**
+<p align="center"><img src="asset/filter-completed.PNG" width="600" length="600"></p>
+
+</p>
+</details>
+
+<details>
+
+**<summary>Tasks: CRUD Operations</summary>**
+<p align="left>
+
+**1. add task - user didn't authenticate**
+<p align="center"><img src="asset" width="600" length="600"></p>
+
+**2. update task - user authenticated**
+<p align="center"><img src="asset" width="600" length="600"></p>
+
+**3. delete task - user authenticated**
+<p align="center"><img src="asset" width="600" length="600"></p>
+
+</p>
+</details>
 

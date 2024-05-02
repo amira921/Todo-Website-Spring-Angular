@@ -54,6 +54,11 @@ public class WebService{
 
     }
 
+    public ResponseEntity<?> redirectGoogle() {
+        return null;
+    }
+
+
     public void logout(){
         jwtToken=null;
     }
@@ -80,39 +85,44 @@ public class WebService{
 
 
     public List<Task> getInProgressTasks() {
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email+FILTER_URL+"in-progress", List.class);
 
     }
 
     public List<Task> getCompletedTasks() {
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email+FILTER_URL+"completed", List.class);
 
     }
 
     public List<Task> getOverdueTasks() {
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email+FILTER_URL+"overdue", List.class);
 
     }
 
     public List<Task> getPersonalTasks() {
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email+FILTER_URL+"personal", List.class);
 
     }
 
     public List<Task> getWorkTasks() {
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email+FILTER_URL+"work", List.class);
 
     }
 
     public List<Task> getTodayTasks() {
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email+FILTER_URL+"today", List.class);
+
     }
 
     public List<Task> getWeeklyTasks() {
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email+FILTER_URL+"next-week", List.class);
     }
 
-    public ResponseEntity<?> redirectGoogle() {
-        return null;
-    }
 }

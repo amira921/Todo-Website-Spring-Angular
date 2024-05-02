@@ -2,7 +2,6 @@ package com.todolist.clientApp.controller;
 
 import com.todolist.clientApp.dto.*;
 import com.todolist.clientApp.service.WebService;
-import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-
 import java.util.List;
 
 @Controller
@@ -100,37 +98,51 @@ public class AppController implements ErrorController {
 
     @GetMapping("/todo-app/profile/filter=personal")
     public String getPersonalTasks(Model model) {
-        return null;
+        List<Task> tasks = service.getPersonalTasks();
+        model.addAttribute("tasks", tasks);
+        return "task_component/userProfile";
     }
 
     @GetMapping("/todo-app/profile/filter=work")
     public String getWorkTasks(Model model) {
-        return null;
+        List<Task> tasks = service.getWorkTasks();
+        model.addAttribute("tasks", tasks);
+        return "task_component/userProfile";
     }
 
     @GetMapping("/todo-app/profile/filter=today")
     public String getTodayTasks(Model model) {
-        return null;
+        List<Task> tasks = service.getTodayTasks();
+        model.addAttribute("tasks", tasks);
+        return "task_component/userProfile";
     }
 
     @GetMapping("/todo-app/profile/filter=next-week")
     public String getWeeklyTasks(Model model) {
-        return null;
+        List<Task> tasks = service.getWeeklyTasks();
+        model.addAttribute("tasks", tasks);
+        return "task_component/userProfile";
     }
 
     @GetMapping("/todo-app/profile/filter=in-progress")
     public String getInProgressTasks(Model model) {
-        return null;
+        List<Task> tasks = service.getInProgressTasks();
+        model.addAttribute("tasks", tasks);
+        return "task_component/userProfile";
     }
 
     @GetMapping("/todo-app/profile/filter=completed")
     public String getCompletedTasks(Model model) {
-        return null;
+        List<Task> tasks = service.getCompletedTasks();
+        model.addAttribute("tasks", tasks);
+        return "task_component/userProfile";
     }
 
     @GetMapping("/todo-app/profile/filter=overdue")
     public String getOverdueTasks(Model model) {
-        return null;
+        List<Task> tasks = service.getOverdueTasks();
+        model.addAttribute("tasks", tasks);
+        return "task_component/userProfile";
     }
 
     @RequestMapping("/error")
