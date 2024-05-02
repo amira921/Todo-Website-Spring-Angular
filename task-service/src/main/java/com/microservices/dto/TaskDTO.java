@@ -27,6 +27,5 @@ public class TaskDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dueDate;
 
-    //@NotBlank(message = "Please choose a status (inprogress or completed)")
     private String status;
 }

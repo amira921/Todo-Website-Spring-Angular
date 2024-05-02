@@ -1,14 +1,13 @@
 package com.microservices.service.impl;
 import com.microservices.dto.TaskDTO;
+import com.microservices.entity.Task;
 import com.microservices.mapper.TaskMapper;
 import com.microservices.repository.TaskRepository;
 import com.microservices.service.TaskService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.List;
 
 @Service
@@ -86,17 +85,30 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDTO addTask(TaskDTO task, String email) {
-        return null;
+    public TaskDTO addTask(TaskDTO newTask, String email) {
+        newTask.setStatus("inprogress");
+        Task task = mapper.mapToEntity(newTask);
+        task.setUserEmail(email);
+        repository.save(task);
+        return mapper.mapToDTO(task);
     }
 
     @Override
-    public TaskDTO updateTask(String email, Integer taskId, TaskDTO taskDTO) {
-        return null;
+    public TaskDTO updateTask(String email, Integer taskId, TaskDTO updatedTaskDTO) {
+        Task task = repository.findById(taskId).orElse(null);
+        task.setId(taskId);
+        task.setUserEmail(email);
+        task.setTitle(updatedTaskDTO.getTitle());
+        task.setDescription(updatedTaskDTO.getDescription());
+        task.setDueDate(updatedTaskDTO.getDueDate());
+        task.setStatus(updatedTaskDTO.getStatus());
+        task.setCategory(updatedTaskDTO.getCategory());
+        repository.save(task);
+        return mapper.mapToDTO(task);
     }
 
     @Override
     public void deleteTaskById(Integer taskId) {
-
+        repository.deleteById(taskId);
     }
 }

@@ -82,18 +82,21 @@ public class AppController implements ErrorController {
 
     @PostMapping("/todo-app/profile/addTask")
     String addTask(@ModelAttribute Task task) {
-        return null;
+        service.addTask(task);
+        return "redirect:/todo-app/profile";
     }
 
     @PostMapping("/todo-app/profile/updateTask/{id}")
     String updateTask(@PathVariable("id") Integer id,
                       @ModelAttribute Task task) {
-        return null;
+       service.updateTask(task);
+        return "redirect:/todo-app/profile";
     }
 
     @GetMapping("/todo-app/profile/deleteTask/{id}")
     String deleteTask(@PathVariable("id") Integer id) {
-        return null;
+        service.deleteTask(id);
+        return "redirect:/todo-app/profile";
     }
 
     @GetMapping("/todo-app/profile/filter=personal")

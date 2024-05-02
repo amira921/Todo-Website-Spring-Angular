@@ -72,15 +72,18 @@ public class WebService{
     }
 
     public String addTask(Task task){
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.postForObject(BASE_ENDPOINT+PROFILE_URL+email+ADD_URL, task, String.class);
     }
 
     public String updateTask(Task task){
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.postForObject(BASE_ENDPOINT+PROFILE_URL+email+UPDATE_URL+task.getId(), task, String.class);
     }
 
     public String deleteTask(Integer id){
-        return null;
+        RestTemplate template = getRestTemplateWithToken();
+        return template.getForObject(BASE_ENDPOINT+PROFILE_URL+email+DELETE_URL+id, String.class);
     }
 
 

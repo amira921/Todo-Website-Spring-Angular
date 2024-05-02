@@ -65,7 +65,7 @@ Install dependencies: mvn install
 
 ### Swagger end-points
 <p align="center">
-<img src="asset/swagger-authentication.PNG" width="300" length="600">
+<img src="asset/swagger-authentication.PNG" width="400" length="600">
 </p>
 
 ## Task Service
@@ -97,7 +97,7 @@ Install dependencies: mvn install
 ### Swagger end-points
 
 <p align="center">
-<img src="asset/swagger-task.PNG" width="300" length="600">
+<img src="asset/swagger-task.PNG" width="400" length="600">
 </p>
 
 ## Web Portal
@@ -115,16 +115,28 @@ Install dependencies: mvn install
 ### Swagger end-points
 
 <p align="center">
-<img src="asset/swagger-app-1.PNG" width="300" length="600">
-<img src="asset/swagger-app-2.PNG" width="300" length="600">
+<img src="asset/swagger-app-1.PNG" width="400" length="600">
+<img src="asset/swagger-app-2.PNG" width="400" length="600">
 </p>
 
 ## Discovery Service
 <p align="center">
-<img src="asset/registry-service.PNG" width="300" length="600">
+<img src="asset/registry-service.PNG" width="600" length="600">
 </p>
 
+### Technologies Used
+- Spring Cloud Netflix Eureka Server
+- Spring Cloud Config
+
 ## API Gateway
+
+### Technologies Used
+- Spring Boot Starter Webflux
+- Spring Cloud Starter Gateway
+- Spring Cloud Starter Netflix Eureka Client
+- Project Lombok
+- JWT API
+- JSON Web Token 
 
 ## Postman Testing
 #### The application handles various types of validation and exceptions. Below are a few test cases:
@@ -220,14 +232,20 @@ Install dependencies: mvn install
 **<summary>Tasks: CRUD Operations</summary>**
 <p align="left>
 
-**1. add task - user didn't authenticate**
-<p align="center"><img src="asset" width="600" length="600"></p>
+**1. add task - user is authorized**
+<p align="center"><img src="asset/add task - authorized.PNG" width="700" length="600"></p>
 
-**2. update task - user authenticated**
-<p align="center"><img src="asset" width="600" length="600"></p>
+**2. update task - user is authorized**
+<p align="center"><img src="asset/update task-authorized.PNG" width="700" length="600"></p>
 
-**3. delete task - user authenticated**
-<p align="center"><img src="asset" width="600" length="600"></p>
+**3. update task - user is unauthorized**
+<p align="center"><img src="asset/update task-unauthorized.PNG" width="700" length="600"></p>
+
+**4. update task - user is authorized - data is invalid**
+<p align="center"><img src="asset/update task-authorized-validation.PNG" width="600" length="600"></p>
+
+**5. delete task - user authorized**
+<p align="center"><img src="asset/delete task - authorized.PNG" width="700" length="600"></p>
 
 </p>
 </details>

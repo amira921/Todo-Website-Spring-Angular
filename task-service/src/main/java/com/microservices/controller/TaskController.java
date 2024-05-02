@@ -65,17 +65,20 @@ public class TaskController {
     }
 
     @PostMapping("/addTask")
-    public ResponseEntity<?> createTask(@Valid @RequestBody TaskDTO task, @PathVariable String email) {
-        return ResponseEntity.ok("");
+    public ResponseEntity<?> createTask(@RequestBody @Valid TaskDTO task, @PathVariable String email) {
+        service.addTask(task,email);
+        return ResponseEntity.status(HttpStatus.CREATED).body("task created successfully!");
     }
     @PostMapping("/updateTask/{taskId}")
     public ResponseEntity<?> updateTask(@PathVariable("email")  String email,
-                             @PathVariable("taskId") Integer taskId,
-                             @RequestBody @Valid TaskDTO task) {
-        return ResponseEntity.ok("");
+                                        @PathVariable("taskId") Integer taskId,
+                                        @RequestBody @Valid TaskDTO task) {
+        service.updateTask(email,taskId, task);
+        return ResponseEntity.status(HttpStatus.OK).body("task updated successfully!");
     }
     @GetMapping ("/deleteTask/{taskId}")
     public ResponseEntity<?> deleteTask(@PathVariable("email")  String email, @PathVariable("taskId") Integer taskId) {
-        return ResponseEntity.ok("");
+        service.deleteTaskById(taskId);
+        return ResponseEntity.status(HttpStatus.OK).body("task deleted successfully!");
     }
 }
