@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService{
     // Registration Functions
-    RegistrationRequest register(RegistrationRequest newAccount);
+    RegistrationRequest register(RegistrationRequest newAccount) throws Exception;
     boolean isEmailExist(String userEmail);
     RegistrationRequest createAccount(RegistrationRequest newAccount);
     boolean saveAccount(RegistrationRequest newUser);

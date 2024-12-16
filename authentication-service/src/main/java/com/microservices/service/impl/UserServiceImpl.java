@@ -1,6 +1,7 @@
 package com.microservices.service.impl;
 
 import com.microservices.dto.*;
+import com.microservices.exception.AuthException;
 import com.microservices.mapper.UserMapper;
 import com.microservices.model.User;
 import com.microservices.repository.UserRepository;
@@ -9,7 +10,6 @@ import com.microservices.service.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public RegistrationRequest register(RegistrationRequest newAccount) {
+    public RegistrationRequest register(RegistrationRequest newAccount) throws Exception {
         log.info("Registration Request is running...");
         RegistrationRequest account = null;
         if (!isEmailExist(newAccount.getEmail())) {
@@ -38,7 +38,11 @@ public class UserServiceImpl implements UserService {
             updateAccountIfEmailSent(account);
 
             log.info("Registration request accepted");
-        } else log.error("Registration request failed");
+        } else{
+            log.error("Registration request failed");
+            AuthException error = AuthException.builder().message("Account Already Exists").build();
+            throw error;
+        }
         return account;
     }
 
