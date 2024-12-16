@@ -1,4 +1,4 @@
-package com.microservices.apiGatway;
+package com.microservices.apiGatway.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

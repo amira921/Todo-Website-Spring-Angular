@@ -1,4 +1,4 @@
-package com.microservices.apiGatway;
+package com.microservices.apiGatway.security;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
