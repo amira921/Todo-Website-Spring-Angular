@@ -17,7 +17,7 @@ export class RegisterComponent{
     registrationForm!: FormGroup;
     registrationFields = REGISTRATION_FORM;
     message: String | null = null;
-    apiUrl: string = "http://localhost:8081/auth/register";
+    apiUrl: string = "http://localhost:8080/todo-app/register";
 
     constructor(private http: HttpClient, private router: Router, private validationService: ValidationService) {
         this.registrationForm = this.validationService.createFormGroup(this.registrationFields);

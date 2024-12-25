@@ -14,16 +14,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 @Slf4j
 public class UserController {
     private final UserService userService;
-
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegistrationRequest newRequest){
