@@ -1,0 +1,3 @@
+[submodule "notification-service"]
+	path = notification-service
+	url = https://github.com/amira921/E-commerce-Notification-Service
