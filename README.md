@@ -1,15 +1,20 @@
 <div align="center">
-   <a href="https://github.com/amira921/Todo-Website-Microservices-Angular">
-      <h2>🚀 Project Revamp</h2>
-   </a>
+   <h2>
+      <a href="https://github.com/amira921/Todo-Website-Microservices-Angular" style="text-decoration: none;">
+         🚀 Project Revamp
+      </a>
+   </h2>
 </div>
+
 
 # Todo-List-Microservices
 This project follows a  microservices, client-server architectures, consisting of separate services for authentication and managing to-do items, each exposing RESTful APIs.
 
 <div align="center">
-   <h2>Demo</h2>
-   [![Demo](assets/website-home.PNG)](https://drive.google.com/file/d/1oQOSAmZKEzCw7c-x5yrKS_8traggIklm/view?usp=sharing)
+   <h2>🚀 Demo</h2>
+   <a href="https://drive.google.com/file/d/1oQOSAmZKEzCw7c-x5yrKS_8traggIklm/view?usp=sharing" target="_blank">
+      <img src="assets/website-home.PNG" alt="Demo" style="border-radius: 10px; width: 70%; max-width: 600px;" />
+   </a>
 </div>
 
 # Application Architecture
