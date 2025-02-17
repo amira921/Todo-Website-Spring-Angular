@@ -1,7 +1,7 @@
 <div align="center">
    <h2>
       <a href="https://github.com/amira921/Todo-Website-Microservices-Angular" style="text-decoration: none;">
-         🚀 Project Revamp
+         🚀 Project Refactoring
       </a>
    </h2>
 </div>
